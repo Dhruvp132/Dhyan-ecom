@@ -119,9 +119,9 @@ export default function ContactPage() {
                       Our Address
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      219, New Cloth Market, Raipur,
+                      123, Abc Road, Area Name
                       <br />
-                      Ahmedabad, Gujarat, India - 380002
+                      City, State, Country - 123456
                     </p>
                   </div>
 
@@ -133,10 +133,10 @@ export default function ContactPage() {
                       Email
                     </h3>
                     <a 
-                      href="mailto:utsavinternational4@gmail.com"
+                      href="mailto:dhruvpatel13210@gmail.com"
                       className="text-gray-600 hover:text-gray-900 transition-colors duration-200 block mb-2"
                     >
-                      utsavinternational4@gmail.com
+                      dhruvpatel13210@gmail.com
                     </a>
                   </div>
 
@@ -148,16 +148,16 @@ export default function ContactPage() {
                       Phone
                     </h3>
                     <a 
-                      href="tel:+919408696719"
+                      href="tel:+1234567890"
                       className="text-gray-600 hover:text-gray-900 transition-colors duration-200 block mb-1"
                     >
-                      (+91) 94086 96719
+                      (+91) 123456 7890
                     </a>
                     <a 
-                      href="tel:+917990718063"
+                      href="tel:+12345678901"
                       className="text-gray-600 hover:text-gray-900 transition-colors duration-200 block"
                     >
-                      (+91) 79907 18063
+                      (+91) 123456 78901
                     </a>
                   </div>
                 </div>
