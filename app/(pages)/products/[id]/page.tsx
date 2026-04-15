@@ -144,8 +144,8 @@ const ProductPage = () => {
         variant: "default",
         duration: 1500,
         style: {
-          backgroundColor: "#191919",
-          color: "#fff",
+          backgroundColor: "#23446C",
+          color: "#ECF2F5",
         },
       });
       setIsAddingToCart(false);
@@ -174,8 +174,8 @@ const ProductPage = () => {
         variant: "default",
         duration: 1500,
         style: {
-          backgroundColor: "#191919",
-          color: "#fff",
+          backgroundColor: "#23446C",
+          color: "#ECF2F5",
         },
       });
       return push("/login");

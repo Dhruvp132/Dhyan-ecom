@@ -32,7 +32,7 @@ const ScrollToTopButton = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-5 right-5 z-50 bg-black text-white p-3 rounded-full transition-all duration-500 ease-out shadow-lg hover:shadow-xl hover:scale-110 ${
+      className={`fixed bottom-5 right-5 z-50 bg-primary text-white p-3 rounded-full transition-all duration-500 ease-out shadow-lg hover:bg-[#2F5A8A] hover:shadow-xl hover:scale-110 ${
         isVisible ? "scale-100 opacity-100" : "scale-0 opacity-0"
       }`}
       style={{ display: isVisible || lastScrollY > 0 ? "block" : "none" }}

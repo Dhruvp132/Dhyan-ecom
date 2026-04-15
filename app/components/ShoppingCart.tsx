@@ -37,6 +37,14 @@ type RootState = {
   };
 };
 
+const cartPalette = {
+  background: "#ECF2F5",
+  primary: "#23446C",
+  secondaryText: "#7B96B7",
+  border: "#D6E0E8",
+  softFill: "#8DA7C226",
+};
+
 const ShoppingCart = () => {
   const { data: session } = useSession();
   const dispatch = useAppDispatch();
@@ -83,19 +91,19 @@ const ShoppingCart = () => {
 
   if (isLoading) {
     return (
-      <div style={{ minHeight: "100vh", backgroundColor: "#ffffff", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <div style={{ minHeight: "100vh", backgroundColor: cartPalette.background, display: "flex", justifyContent: "center", alignItems: "center" }}>
         <Loader />
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#ffffff" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: cartPalette.background, color: cartPalette.primary }}>
       {/* Header Section */}
       <div
         style={{
           padding: "2rem 1rem",
-          borderBottom: "1px solid #e5e5e5",
+          borderBottom: `1px solid ${cartPalette.border}`,
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -117,7 +125,7 @@ const ShoppingCart = () => {
           href="/"
           style={{
             textDecoration: "underline",
-            color: "#000000",
+            color: cartPalette.primary,
             fontSize: "1rem",
             fontWeight: "400",
           }}
@@ -136,7 +144,7 @@ const ShoppingCart = () => {
       >
         {!Array.isArray(cartItems) || cartItems.length === 0 ? (
           <div style={{ textAlign: "center", padding: "3rem 1rem" }}>
-            <p style={{ fontSize: "1.125rem", color: "#666666" }}>Your cart is empty</p>
+            <p style={{ fontSize: "1.125rem", color: cartPalette.secondaryText }}>Your cart is empty</p>
           </div>
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "2rem" }}>
@@ -149,18 +157,18 @@ const ShoppingCart = () => {
                   gridTemplateColumns: "1fr 1fr 1fr",
                   gap: "2rem",
                   paddingBottom: "1rem",
-                  borderBottom: "1px solid #e5e5e5",
+                  borderBottom: `1px solid ${cartPalette.border}`,
                   marginBottom: "2rem",
                 }}
               >
-                <div style={{ fontSize: "0.875rem", fontWeight: "600", color: "#999999", letterSpacing: "0.05em" }}>
+                <div style={{ fontSize: "0.875rem", fontWeight: "600", color: cartPalette.secondaryText, letterSpacing: "0.05em" }}>
                   PRODUCT
                 </div>
                 <div
                   style={{
                     fontSize: "0.875rem",
                     fontWeight: "600",
-                    color: "#999999",
+                    color: cartPalette.secondaryText,
                     letterSpacing: "0.05em",
                     textAlign: "center",
                   }}
@@ -171,7 +179,7 @@ const ShoppingCart = () => {
                   style={{
                     fontSize: "0.875rem",
                     fontWeight: "600",
-                    color: "#999999",
+                    color: cartPalette.secondaryText,
                     letterSpacing: "0.05em",
                     textAlign: "right",
                   }}
@@ -186,19 +194,19 @@ const ShoppingCart = () => {
                   gridTemplateColumns: "1fr 1fr",
                   gap: "2rem",
                   paddingBottom: "1rem",
-                  borderBottom: "1px solid #e5e5e5",
+                  borderBottom: `1px solid ${cartPalette.border}`,
                   marginBottom: "2rem",
                 }}
                 className="grid md:hidden"
               >
-                <div style={{ fontSize: "0.875rem", fontWeight: "600", color: "#999999", letterSpacing: "0.05em" }}>
+                <div style={{ fontSize: "0.875rem", fontWeight: "600", color: cartPalette.secondaryText, letterSpacing: "0.05em" }}>
                   PRODUCT
                 </div>
                 <div
                   style={{
                     fontSize: "0.875rem",
                     fontWeight: "600",
-                    color: "#999999",
+                    color: cartPalette.secondaryText,
                     letterSpacing: "0.05em",
                     textAlign: "right",
                   }}
@@ -222,19 +230,19 @@ const ShoppingCart = () => {
                             alt={item.product.name}
                             width={160}
                             height={200}
-                            style={{ width: "100%", height: "auto", backgroundColor: "#f0f0f0", objectFit: "cover" }}
+                            style={{ width: "100%", height: "auto", backgroundColor: cartPalette.softFill, objectFit: "cover" }}
                           />
                         </div>
                         <div>
                           <h3 style={{ fontSize: "1rem", fontWeight: "600", margin: "0 0 0.5rem 0" }}>{item.product.name}</h3>
-                          <p style={{ fontSize: "0.875rem", color: "#666666", margin: "0 0 0.25rem 0" }}>
+                          <p style={{ fontSize: "0.875rem", color: cartPalette.secondaryText, margin: "0 0 0.25rem 0" }}>
                             Rs. {item.product.price.toFixed(2)}
                           </p>
                           {item.size && (
-                            <p style={{ fontSize: "0.875rem", color: "#666666", margin: "0" }}>SIZE: {item.size}</p>
+                            <p style={{ fontSize: "0.875rem", color: cartPalette.secondaryText, margin: "0" }}>SIZE: {item.size}</p>
                           )}
                           {item.color && (
-                            <p style={{ fontSize: "0.875rem", color: "#666666", margin: "0" }}>COLOR: {item.color}</p>
+                            <p style={{ fontSize: "0.875rem", color: cartPalette.secondaryText, margin: "0" }}>COLOR: {item.color}</p>
                           )}
                         </div>
                       </div>
@@ -253,7 +261,7 @@ const ShoppingCart = () => {
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          border: "1px solid #000000",
+                          border: `1px solid ${cartPalette.primary}`,
                           width: "100%",
                           maxWidth: "150px",
                         }}
@@ -277,8 +285,8 @@ const ShoppingCart = () => {
                             flex: 1,
                             textAlign: "center",
                             padding: "0.75rem",
-                            borderLeft: "1px solid #000000",
-                            borderRight: "1px solid #000000",
+                            borderLeft: `1px solid ${cartPalette.primary}`,
+                            borderRight: `1px solid ${cartPalette.primary}`,
                             fontSize: "1rem",
                             fontWeight: "500",
                           }}
@@ -319,7 +327,7 @@ const ShoppingCart = () => {
                           justifyContent: "center",
                         }}
                       >
-                        <Trash2 size={20} color="#000000" />
+                        <Trash2 size={20} color={cartPalette.primary} />
                       </button>
                     </div>
                   </div>
@@ -342,18 +350,18 @@ const ShoppingCart = () => {
                         alt={item.product.name}
                         width={100}
                         height={140}
-                        style={{ width: "100px", height: "140px", backgroundColor: "#f0f0f0", objectFit: "cover" }}
+                        style={{ width: "100px", height: "140px", backgroundColor: cartPalette.softFill, objectFit: "cover" }}
                       />
                       <div>
                         <h3 style={{ fontSize: "1.125rem", fontWeight: "600", margin: "0 0 0.5rem 0" }}>{item.product.name}</h3>
-                        <p style={{ fontSize: "0.875rem", color: "#666666", margin: "0 0 0.25rem 0" }}>
+                        <p style={{ fontSize: "0.875rem", color: cartPalette.secondaryText, margin: "0 0 0.25rem 0" }}>
                           Rs. {item.product.price.toFixed(2)}
                         </p>
                         {item.size && (
-                          <p style={{ fontSize: "0.875rem", color: "#666666", margin: "0" }}>SIZE: {item.size}</p>
+                          <p style={{ fontSize: "0.875rem", color: cartPalette.secondaryText, margin: "0" }}>SIZE: {item.size}</p>
                         )}
                         {item.color && (
-                          <p style={{ fontSize: "0.875rem", color: "#666666", margin: "0" }}>COLOR: {item.color}</p>
+                          <p style={{ fontSize: "0.875rem", color: cartPalette.secondaryText, margin: "0" }}>COLOR: {item.color}</p>
                         )}
                       </div>
                     </div>
@@ -364,7 +372,7 @@ const ShoppingCart = () => {
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          border: "1px solid #000000",
+                          border: `1px solid ${cartPalette.primary}`,
                           width: "100%",
                           maxWidth: "120px",
                         }}
@@ -388,8 +396,8 @@ const ShoppingCart = () => {
                             flex: 1,
                             textAlign: "center",
                             padding: "0.5rem",
-                            borderLeft: "1px solid #000000",
-                            borderRight: "1px solid #000000",
+                            borderLeft: `1px solid ${cartPalette.primary}`,
+                            borderRight: `1px solid ${cartPalette.primary}`,
                             fontSize: "0.875rem",
                             fontWeight: "500",
                           }}
@@ -423,7 +431,7 @@ const ShoppingCart = () => {
                           justifyContent: "center",
                         }}
                       >
-                        <Trash2 size={20} color="#000000" />
+                        <Trash2 size={20} color={cartPalette.primary} />
                       </button>
                     </div>
 
@@ -449,7 +457,7 @@ const ShoppingCart = () => {
                 flexDirection: "column",
                 gap: "2rem",
                 paddingTop: "2rem",
-                borderTop: "1px solid #e5e5e5",
+                borderTop: `1px solid ${cartPalette.border}`,
               }}
             >
               {/* Estimated Total */}
@@ -469,7 +477,7 @@ const ShoppingCart = () => {
               <p
                 style={{
                   fontSize: "0.875rem",
-                  color: "#666666",
+                  color: cartPalette.secondaryText,
                   margin: "0",
                   textAlign: "center",
                 }}
@@ -490,7 +498,7 @@ const ShoppingCart = () => {
                   style={{
                     width: "100%",
                     padding: "1rem",
-                    backgroundColor: "#000000",
+                    backgroundColor: cartPalette.primary,
                     color: "#ffffff",
                     border: "none",
                     fontSize: "1.125rem",

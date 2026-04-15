@@ -58,7 +58,7 @@ const HomeProducts = () => {
   if (isLoading) return <ProductsSkeletons />;
   if (error)
     return (
-      <h1 className="text-2xl font-bold text-center text-red-500">
+      <h1 className="text-2xl font-bold text-center text-destructive">
         Error: Failed to load products
       </h1>
     );
@@ -85,14 +85,14 @@ const HomeProducts = () => {
             ))
           ) : (
             <div className="col-span-full">
-              <h1 className="text-2xl font-bold text-center text-gray-400">
+              <h1 className="text-2xl font-bold text-center text-gray-600">
                 No products found
               </h1>
             </div>
           )}
         </div>
         {loadedCount < randomProducts.length && randomProducts.length > 0 && (
-          <div className="mt-8 text-center text-sm text-gray-500">
+          <div className="mt-8 text-center text-sm text-gray-600">
             Loading products... ({loadedCount}/{randomProducts.length})
           </div>
         )}

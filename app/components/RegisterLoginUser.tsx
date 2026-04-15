@@ -2,13 +2,14 @@
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/providers/toolkit/hooks/hooks";
 import { registerUser } from "@/providers/toolkit/features/RegisterUserSlice";
 import TestUser from "../(pages)/login/Testuser";
 import { INVALID_PASSWORD_MESSAGE, PASSWORD_REGEX } from "@/lib/auth-validation";
+import { clearAuth, setAuthUser } from "@/providers/toolkit/features/AuthSlice";
 
 interface SignupProps {
   name: string;
@@ -61,6 +62,7 @@ const RegisterLoginUser = () => {
         });
         setIsLoading(true);
         if (user?.error) {
+          dispatch(clearAuth());
           toast({
             title: "Error",
             description: user.error,
@@ -68,14 +70,26 @@ const RegisterLoginUser = () => {
             variant: "destructive",
           });
         } else {
+          const session = await getSession();
+          if (session?.user) {
+            dispatch(
+              setAuthUser({
+                id: (session.user as { id?: string }).id || "",
+                email: session.user.email,
+                name: session.user.name,
+                isAdmin:
+                  (session.user as { isAdmin?: boolean }).isAdmin || false,
+              })
+            );
+          }
           toast({
             title: "Success",
             description: "Logged in successfully",
             duration: 3000,
             variant: "default",
             style: {
-              backgroundColor: "#191919",
-              color: "#fff",
+              backgroundColor: "#23446C",
+              color: "#ECF2F5",
             },
           });
           route.push("/");
@@ -215,7 +229,7 @@ const RegisterLoginUser = () => {
             )}
           </div>
           <button
-            className="w-full bg-black text-white font-semibold py-3 px-4 hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-primary text-white font-semibold py-3 px-4 rounded-lg hover:bg-[#2F5A8A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             type="submit"
             disabled={isLoading}
           >
@@ -266,7 +280,7 @@ const RegisterLoginUser = () => {
             <button 
               type="button"
               onClick={toggleForm} 
-              className="text-black font-semibold hover:underline focus:outline-none"
+              className="text-primary font-semibold hover:text-[#2F5A8A] hover:underline focus:outline-none"
             >
               {isLogin ? "Sign Up" : "Login"}
             </button>

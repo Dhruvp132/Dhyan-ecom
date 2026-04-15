@@ -2,14 +2,23 @@
 import { ShoppingBag, Menu, X, User, Search } from "lucide-react";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
 import { WordRotate } from "@/components/ui/word-rotate";
 import { SearchBar } from "./SearchBar";
+import { useAppDispatch, useAppSelector } from "@/providers/toolkit/hooks/hooks";
+import { clearAuth, setAuthUser, setSessionStatus } from "@/providers/toolkit/features/AuthSlice";
+import { clearCart } from "@/providers/toolkit/features/AddToCartSlice";
+import { clearCartItems } from "@/providers/toolkit/features/GetUserAllCartitems";
+import { clearAddress } from "@/providers/toolkit/features/CreateAddressForOrderSlice";
+import { clearOrders } from "@/providers/toolkit/features/GetOrdersSlice";
 
 interface AppUser {
+  id?: string;
+  email?: string | null;
+  name?: string | null;
   isAdmin: boolean;
 }
 
@@ -17,18 +26,70 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { data: session, status: sessionStatus } = useSession();
+  const dispatch = useAppDispatch();
+  const authState = useAppSelector((state) => state.auth);
   const { toast } = useToast();
   const router = useRouter();
 
-  const Admin = session?.user ? (session.user as AppUser).isAdmin : false;
+  const syncUser = session?.user as AppUser | undefined;
+
+  useEffect(() => {
+    if (sessionStatus === "loading") {
+      dispatch(setSessionStatus("loading"));
+      return;
+    }
+
+    if (syncUser) {
+      dispatch(
+        setAuthUser({
+          id: syncUser.id || "",
+          email: syncUser.email,
+          name: syncUser.name,
+          isAdmin: syncUser.isAdmin || false,
+        })
+      );
+      return;
+    }
+
+    dispatch(clearAuth());
+  }, [dispatch, sessionStatus, syncUser]);
+
+  const isAuthenticated = authState.isAuthenticated || !!syncUser;
+  const shouldShowAuthLoading = sessionStatus === "loading" && !isAuthenticated;
+  const Admin = useMemo(
+    () => authState.user?.isAdmin || syncUser?.isAdmin || false,
+    [authState.user?.isAdmin, syncUser?.isAdmin]
+  );
+
+  const handleLogout = async (closeMenu = false) => {
+    dispatch(clearCart());
+    dispatch(clearCartItems());
+    dispatch(clearAddress());
+    dispatch(clearOrders());
+    dispatch(clearAuth());
+
+    if (closeMenu) {
+      setMenuOpen(false);
+    }
+
+    await signOut({ callbackUrl: "/login" });
+
+    toast({
+      title: "Success",
+      description: "Logged out successfully",
+      duration: 3000,
+      variant: "default",
+      style: { backgroundColor: "#23446C", color: "#ECF2F5" },
+    });
+  };
 
   return (
     <>
       {/* Marquee Announcement Bar */}
-      <div className="fixed top-0 left-0 w-full h-[30px] md:h-[4.1vh] bg-[#1c1c1c] z-50 overflow-hidden flex justify-center items-center">
+      <div className="fixed top-0 left-0 w-full h-[30px] md:h-[4.1vh] bg-primary z-50 overflow-hidden flex justify-center items-center border-b border-white/10">
         <div className="announcment_bar">
           <WordRotate 
-            className="text-white text-xs md:text-sm font-semibold"
+            className="text-[#ECF2F5] text-xs md:text-sm font-semibold"
             duration={1500}
             words={[
               "EXTENSION OF YOUR EXPRESSION",
@@ -47,7 +108,7 @@ const Navbar = () => {
       </div>
 
       {/* Navbar */}
-      <div className="fixed top-[30px] md:top-[4.1vh] left-0 right-0 z-40 bg-white shadow-md">
+      <div className="fixed top-[30px] md:top-[4.1vh] left-0 right-0 z-40 bg-white backdrop-blur-md shadow-[0_12px_30px_rgba(35,68,108,0.08)] border-b border-border">
         <nav className="max-w-screen-xl mx-auto px-4">
           {/* Top bar */}
           <div className="flex items-center justify-between py-4">
@@ -67,10 +128,11 @@ const Navbar = () => {
               onClick={() => setMenuOpen(false)}
             >
               <Image
+                priority
                 src="/coltLogo.webp"
                 alt="Logo"
-                width={50}
-                height={40}
+                width={70}
+                height={70}
                 className="object-contain"
               />
               <span className="hidden sm:inline-block text-lg font-semibold text-gray-900">
@@ -81,24 +143,24 @@ const Navbar = () => {
             {/* Right - Icons */}
             <div className="flex items-center gap-4">
               <Search 
-                className="w-5 h-5 cursor-pointer" 
+                className="w-5 h-5 cursor-pointer text-gray-900 hover:text-[#2F5A8A]" 
                 onClick={() => setSearchOpen(!searchOpen)}
               />
-              {sessionStatus === "loading" ? (
-                <div className="w-5 h-5 bg-gray-200 animate-pulse rounded-full"></div>
-              ) : session?.user ? (
+              {shouldShowAuthLoading ? (
+                <div className="w-5 h-5 bg-secondary/40 animate-pulse rounded-full"></div>
+              ) : isAuthenticated ? (
                 <User 
-                  className="w-5 h-5 cursor-pointer hidden md:block" 
+                  className="w-5 h-5 cursor-pointer md:block text-gray-900 hover:text-[#2F5A8A]" 
                   onClick={() => router.push("/order")}
                 />
               ) : (
                 <User 
-                  className="w-5 h-5 cursor-pointer hidden md:block" 
+                  className="w-5 h-5 cursor-pointer md:block text-gray-900 hover:text-[#2F5A8A]" 
                   onClick={() => router.push("/login")}
                 />
               )}
               <ShoppingBag 
-                className="w-5 h-5 cursor-pointer" 
+                className="w-5 h-5 cursor-pointer text-gray-900 hover:text-[#2F5A8A]" 
                 onClick={() => router.push("/cart")}
               />
             </div>
@@ -116,17 +178,9 @@ const Navbar = () => {
             <NavLinks 
               session={session} 
               Admin={Admin} 
-              sessionStatus={sessionStatus}
-              onLogout={() => {
-                signOut({ callbackUrl: "/login" });
-                toast({
-                  title: "Success",
-                  description: "Logged out successfully",
-                  duration: 3000,
-                  variant: "default",
-                  style: { backgroundColor: "#191919", color: "#fff" },
-                });
-              }}
+              isAuthenticated={isAuthenticated}
+                shouldShowAuthLoading={shouldShowAuthLoading}
+              onLogout={() => handleLogout(false)}
             />
           </div>
 
@@ -136,18 +190,9 @@ const Navbar = () => {
               <NavLinks 
                 session={session} 
                 Admin={Admin} 
-                sessionStatus={sessionStatus}
-                onLogout={() => {
-                  signOut({ callbackUrl: "/login" });
-                  toast({
-                    title: "Success",
-                    description: "Logged out successfully",
-                    duration: 3000,
-                    variant: "default",
-                    style: { backgroundColor: "#191919", color: "#fff" },
-                  });
-                  setMenuOpen(false);
-                }}
+                isAuthenticated={isAuthenticated}
+                shouldShowAuthLoading={shouldShowAuthLoading}
+                onLogout={() => handleLogout(true)}
                 onLinkClick={() => setMenuOpen(false)}
               />
             </div>
@@ -162,13 +207,15 @@ const Navbar = () => {
 function NavLinks({ 
   session, 
   Admin, 
-  sessionStatus,
+  isAuthenticated,
+  shouldShowAuthLoading,
   onLogout,
   onLinkClick 
 }: { 
   session: any; 
   Admin: boolean; 
-  sessionStatus: string;
+  isAuthenticated: boolean;
+  shouldShowAuthLoading: boolean;
   onLogout: () => void;
   onLinkClick?: () => void;
 }) {
@@ -176,14 +223,14 @@ function NavLinks({
     <>
       <Link 
         href="/" 
-        className="hover:underline underline-offset-4"
+        className="text-gray-900 hover:text-[#2F5A8A] hover:underline underline-offset-4"
         onClick={onLinkClick}
       >
         Home
       </Link>
       <Link 
         href="/products" 
-        className="hover:underline underline-offset-4"
+        className="text-gray-900 hover:text-[#2F5A8A] hover:underline underline-offset-4"
         onClick={onLinkClick}
       >
         Shop
@@ -197,45 +244,45 @@ function NavLinks({
       </Link> */}
       <Link 
         href="/contact" 
-        className="hover:underline underline-offset-4"
+        className="text-gray-900 hover:text-[#2F5A8A] hover:underline underline-offset-4"
         onClick={onLinkClick}
       >
         Contact
       </Link>
       <Link 
-        href={session?.user ? "/order" : "/login"} 
-        className="hover:underline underline-offset-4"
+        href={isAuthenticated ? "/order" : "/login"} 
+        className="text-gray-900 hover:text-[#2F5A8A] hover:underline underline-offset-4"
         onClick={onLinkClick}
       >
         Orders
       </Link>
       {Admin && (
         <Link 
-          href={session?.user ? "/dashboard" : "/login"} 
-          className="hover:underline underline-offset-4"
+          href={isAuthenticated ? "/dashboard" : "/login"} 
+          className="text-gray-900 hover:text-[#2F5A8A] hover:underline underline-offset-4"
           onClick={onLinkClick}
         >
           Dashboard
         </Link>
       )}
-      {sessionStatus === "loading" ? (
+      {shouldShowAuthLoading ? (
         <button
-          onClick={onLogout}
-          className="hover:underline underline-offset-4"
+          disabled
+          className="text-gray-900 hover:text-[#2F5A8A] hover:underline underline-offset-4"
         >
-          Logout
+          Loading...
         </button>
-      ) : session?.user ? (
+      ) : isAuthenticated ? (
         <button
           onClick={onLogout}
-          className="hover:underline underline-offset-4"
+          className="text-gray-900 hover:text-[#2F5A8A] hover:underline underline-offset-4"
         >
           Logout
         </button>
       ) : (
         <Link 
           href="/login" 
-          className="hover:underline underline-offset-4"
+          className="text-gray-900 hover:text-[#2F5A8A] hover:underline underline-offset-4"
           onClick={onLinkClick}
         >
           Login

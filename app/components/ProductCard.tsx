@@ -75,20 +75,20 @@ const ProductCard = ({ product, onLoad }: { product: Product; onLoad?: () => voi
               />
 
               {product.isOnSale && (
-                <div className="absolute bottom-3 left-3 bg-black text-white px-3 py-1 text-xs font-medium rounded-full z-10 transition-transform duration-200 ease-out group-hover:scale-110">
+                <div className="absolute bottom-3 left-3 bg-primary text-white px-3 py-1 text-xs font-medium rounded-full z-10 transition-transform duration-200 ease-out group-hover:scale-110">
                   Sale
                 </div>
               )}
 
               {!imageLoaded && (
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#D6E0E8] via-[#ECF2F5] to-[#D6E0E8] animate-pulse" />
               )}
             </>
           )}
         </div>
 
         <div className="flex flex-col gap-1 transition-all duration-200 ease-out group-hover:translate-y-[-2px]">
-          <h3 className="text-sm font-medium text-gray-900 line-clamp-1 transition-colors duration-200 ease-out group-hover:text-gray-600">
+          <h3 className="text-sm font-medium text-gray-900 line-clamp-1 transition-colors duration-200 ease-out group-hover:text-[#2F5A8A]">
             {product.name}
           </h3>
 
@@ -98,7 +98,7 @@ const ProductCard = ({ product, onLoad }: { product: Product; onLoad?: () => voi
                 ₹{product.originalPrice.toFixed(2)}
               </span>
             )}
-            <span className="text-sm font-semibold text-gray-900 transition-colors duration-200 ease-out group-hover:text-blue-600 mb-[20px] md:mb-[25px] lg:mb-[25px]">
+            <span className="text-sm font-semibold text-gray-900 transition-colors duration-200 ease-out group-hover:text-[#2F5A8A] mb-[20px] md:mb-[25px] lg:mb-[25px]">
               ₹{product.price.toFixed(2)}
             </span>
           </div>

@@ -25,8 +25,8 @@ const ToastCartButton = ({ product }: any) => {
         variant: "default",
         duration: 1500,
         style: {
-          backgroundColor: "#191919",
-          color: "#fff",
+          backgroundColor: "#23446C",
+          color: "#ECF2F5",
         },
       });
       setIsLoading(false);
@@ -48,7 +48,7 @@ const ToastCartButton = ({ product }: any) => {
   return (
     <button
       onClick={handleClick}
-      className="mt-4 py-2 px-4 bg-black text-white rounded-lg flex items-center justify-center hover:bg-gray-900  sm:w-auto"
+      className="mt-4 py-2 px-4 bg-primary text-white rounded-lg flex items-center justify-center hover:bg-[#2F5A8A] sm:w-auto"
       disabled={isLoading}
     >
       {isLoading ? (

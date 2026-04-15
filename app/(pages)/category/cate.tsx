@@ -12,7 +12,7 @@ const categoryData = [
 			"https://images.unsplash.com/photo-1517940310602-26535839fe84?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 		tag: "#Men",
 		title: "Elevate Your Style with Trending Men's Fashion",
-		gradient: "from-purple-500 via-pink-500 to-red-500",
+		gradient: "from-[#23446C] via-[#2F5A8A] to-[#7B96B7]",
 		description:
 			"Discover a curated collection of men's apparel, from casual wear to formal attire.",
 	},
@@ -22,7 +22,7 @@ const categoryData = [
 			"https://images.unsplash.com/flagged/photo-1553802922-2eb2f7f2c65b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 		tag: "#Women",
 		title: "Explore Our Diverse Women's Fashion Collection",
-		gradient: "from-green-400 via-blue-500 to-purple-600",
+		gradient: "from-[#8DA7C2] via-[#7B96B7] to-[#23446C]",
 		description:
 			"Find the perfect outfit for any occasion with our extensive range of women's clothing.",
 	},
@@ -32,7 +32,7 @@ const categoryData = [
 			"https://images.unsplash.com/photo-1519308914928-2e6b45de9ac1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 		tag: "#Children",
 		title: "Discover Playful and Stylish Children's Fashion",
-		gradient: "from-yellow-400 via-orange-500 to-red-600",
+		gradient: "from-[#23446C] via-[#8DA7C2] to-[#7B96B7]",
 		description:
 			"Dress your little ones in comfort and style with our adorable children's wear.",
 	},
@@ -80,13 +80,13 @@ const Categories = () => {
 									<span className="inline-block px-3 py-1 text-sm font-semibold bg-white text-gray-800 rounded-full mb-4">
 										{category.tag}
 									</span>
-									<h2 className="text-3xl md:text-4xl font-bold text-white mb-4 group-hover:text-yellow-300 transition-colors duration-300">
+									<h2 className="text-3xl md:text-4xl font-bold text-white mb-4 group-hover:text-[#ECF2F5] transition-colors duration-300">
 										{category.title}
 									</h2>
 									<p className="text-white text-opacity-90 mb-6">
 										{category.description}
 									</p>
-									<span className="inline-flex items-center text-white group-hover:text-yellow-300 transition-all duration-300 ease-out">
+									<span className="inline-flex items-center text-white group-hover:text-[#ECF2F5] transition-all duration-300 ease-out">
 										Explore Now{" "}
 										<FaArrowRight className="ml-2 transition-transform duration-300 ease-out group-hover:translate-x-2" />
 									</span>

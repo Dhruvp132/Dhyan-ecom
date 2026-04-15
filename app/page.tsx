@@ -14,10 +14,10 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <main className="relative pt-[180px] w-full overflow-x-hidden min-h-screen">
+    <main className="relative pt-[180px] w-full overflow-x-hidden min-h-screen bg-background">
       <Hero />
       <HomeProductsWrapper />
-      <div className="relative z-20 bg-gray-900 w-full">
+      <div className="relative z-20 bg-primary w-full">
         <Footer />
       </div>
     </main>

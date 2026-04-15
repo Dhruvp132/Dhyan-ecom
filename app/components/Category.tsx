@@ -34,7 +34,7 @@ const categories = [
 
 const Category = () => {
 	return (
-		<section className="bg-gradient-to-b from-gray-50 to-gray-100 py-20">
+		<section className="bg-gradient-to-b from-background to-white py-20">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<motion.div
 					initial={{ opacity: 0, y: 30 }}
@@ -44,7 +44,7 @@ const Category = () => {
 				>
 					<h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
 						Discover Our{" "}
-						<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+						<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#23446C] to-[#7B96B7]">
 							New Collection
 						</span>
 					</h1>
@@ -91,7 +91,7 @@ const Category = () => {
 										</span>
 									</div>
 									<motion.div
-										className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"
+										className="absolute inset-0 bg-gradient-to-t from-[#23446C]/90 via-[#23446C]/50 to-transparent"
 										initial={{ opacity: 0 }}
 										whileHover={{ opacity: 1 }}
 										transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
@@ -100,7 +100,7 @@ const Category = () => {
 											<motion.button
 												whileHover={{
 													scale: 1.05,
-													backgroundColor: "#1a202c",
+													backgroundColor: "#23446C",
 													color: "#ffffff",
 													transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
 												}}

@@ -37,7 +37,7 @@ export function SortDropdown({ options, defaultValue = options[0]?.value, onSort
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-900 rounded-md shadow-lg z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-[0_16px_40px_rgba(35,68,108,0.12)] z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
           {options.map((option) => (
             <button
               key={option.value}

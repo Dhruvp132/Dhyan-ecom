@@ -20,16 +20,16 @@ const TestUser = () => {
       description: "Copied to clipboard",
       duration: 3000,
       style: {
-        backgroundColor: "#191919",
-        color: "#fff",
+        backgroundColor: "#23446C",
+        color: "#ECF2F5",
       },
     });
   };
 
   return (
     <div className="flex flex-col space-y-6 p-4 max-w-md mx-auto">
-      <div className="p-4 bg-blue-100 rounded-lg">
-        <h2 className="text-base font-semibold text-blue-800">
+      <div className="p-4 bg-secondary/15 border border-secondary/30 rounded-lg">
+        <h2 className="text-base font-semibold text-primary">
           Admin Test Account
         </h2>
         <div className="mt-2 text-xs">
@@ -54,8 +54,8 @@ const TestUser = () => {
         </div>
       </div>
 
-      <div className="p-4 bg-green-100 rounded-lg">
-        <h2 className="text-base font-semibold text-green-800">
+      <div className="p-4 bg-white border border-border rounded-lg">
+        <h2 className="text-base font-semibold text-primary">
           User Test Account
         </h2>
         <div className="mt-2 text-xs">

@@ -12,13 +12,14 @@ import { DeleteCartItemSlice } from "../features/DeleteCartItemSlice";
 import { CreateAddressForOrderSlice } from "../features/CreateAddressForOrderSlice";
 import { GetOrdersSlice } from "../features/GetOrdersSlice";
 import { GetProductsByCategorySlice } from "../features/GetProductsByCategorySlice";
+import { AuthSlice } from "../features/AuthSlice";
 
 // Persist config
 const persistConfig = {
   key: "root",
   storage,
   // Whitelist the state slices you want to persist
-  whitelist: ["cart", "cartItems", "address", "orders"],
+  whitelist: ["auth", "cart", "cartItems", "address", "orders"],
   // Blacklist any state you don't want to persist (like API cache)
   blacklist: [productsApi.reducerPath, userAPI.reducerPath],
 };
@@ -27,6 +28,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   [productsApi.reducerPath]: productsApi.reducer,
   [userAPI.reducerPath]: userAPI.reducer,
+  auth: AuthSlice.reducer,
   user: UserRegisterSlice.reducer,
   product: CreateProductSlice.reducer,
   cart: AddToCartSlice.reducer,

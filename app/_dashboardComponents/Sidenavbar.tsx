@@ -15,16 +15,16 @@ const Sidenavbar: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<Boolean>(false);
 
   return (
-    <header className="bg-purple-50 shadow sticky top-0 z-20">
+    <header className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-20 border-b border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo and Dashboard Link */}
           <div className="flex items-center">
             <Link
               href="/dashboard"
-              className="flex items-center gap-2 text-lg font-semibold text-gray-900 hover:text-teal-600"
+              className="flex items-center gap-2 text-lg font-semibold text-gray-900 hover:text-[#2F5A8A]"
             >
-              <DatabaseIcon className="h-6 w-6 text-teal-600" />
+              <DatabaseIcon className="h-6 w-6 text-[#7B96B7]" />
               <span className="hidden md:block">Dashboard</span>
             </Link>
           </div>
@@ -35,7 +35,7 @@ const Sidenavbar: FC = () => {
               <li>
                 <Link
                   href="/dashboard"
-                  className="text-gray-900 hover:text-teal-600 flex justify-center items-end gap-1"
+                  className="text-gray-900 hover:text-[#2F5A8A] flex justify-center items-end gap-1"
                 >
                   <HomeIcon className="h-6 w-6" />
                   <span className="ml-1">Home</span>
@@ -44,7 +44,7 @@ const Sidenavbar: FC = () => {
               <li>
                 <Link
                   href="/dashboard/users"
-                  className="text-gray-900 hover:text-teal-600 flex justify-center items-end gap-1"
+                  className="text-gray-900 hover:text-[#2F5A8A] flex justify-center items-end gap-1"
                 >
                   <User2Icon className="h-6 w-6" />
                   <span className="ml-1">Users</span>
@@ -53,7 +53,7 @@ const Sidenavbar: FC = () => {
               <li>
                 <Link
                   href="/dashboard/products"
-                  className="text-gray-900 hover:text-teal-600 flex justify-center items-end gap-1"
+                  className="text-gray-900 hover:text-[#2F5A8A] flex justify-center items-end gap-1"
                 >
                   <Package className="h-6 w-6" />
                   <span className="ml-1">Products</span>
@@ -62,7 +62,7 @@ const Sidenavbar: FC = () => {
               <li>
                 <Link
                   href="/dashboard/orders"
-                  className="text-gray-900 hover:text-teal-600 flex justify-center items-end gap-1"
+                  className="text-gray-900 hover:text-[#2F5A8A] flex justify-center items-end gap-1"
                 >
                   <ShoppingCart className="h-6 w-6" />
                   <span className="ml-1">Orders</span>
@@ -75,7 +75,7 @@ const Sidenavbar: FC = () => {
           <div className="md:hidden">
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-[#2F5A8A] hover:bg-background"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? (

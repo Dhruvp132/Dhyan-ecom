@@ -30,7 +30,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer ref={footerRef} className="bg-black text-white border-t border-gray-900">
+    <footer ref={footerRef} className="bg-primary text-[#ECF2F5] border-t border-white/10">
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
@@ -40,7 +40,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {["Home", "Products", "Category", "On Sale", "Track Your Order"].map((item) => (
                 <li key={item}>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  <a href="#" className="text-[#ECF2F5]/78 hover:text-white transition-colors duration-200">
                     {item}
                   </a>
                 </li>
@@ -61,7 +61,7 @@ export default function Footer() {
                 "Contact Information",
               ].map((item) => (
                 <li key={item}>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  <a href="#" className="text-[#ECF2F5]/78 hover:text-white transition-colors duration-200">
                     {item}
                   </a>
                 </li>
@@ -72,7 +72,7 @@ export default function Footer() {
           {/* HEADQUARTERS Column */}
           <div data-cascade style={{ "--animation-order": 2 } as React.CSSProperties}>
             <h2 className="text-lg font-semibold mb-6 tracking-wide">HEADQUARTERS</h2>
-            <div className="space-y-4 text-gray-300">
+            <div className="space-y-4 text-[#ECF2F5]/78">
               <p>COLT & CO. Clothing Store, Fashion District, Style Avenue</p>
               <a
                 href="mailto:hello@coltandco.com"
@@ -93,11 +93,11 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Email"
-                className="flex-1 bg-transparent border border-gray-600 px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors duration-200"
+                className="flex-1 bg-white/8 border border-white/20 px-4 py-3 text-white placeholder:text-[#ECF2F5]/50 focus:outline-none focus:border-white transition-colors duration-200"
               />
               <button
                 type="submit"
-                className="border border-gray-600 px-4 py-3 hover:border-white transition-colors duration-200"
+                className="border border-white/20 px-4 py-3 hover:border-white hover:bg-white/10 transition-colors duration-200"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="w-4 h-4" viewBox="0 0 14 10">
                   <path
@@ -116,7 +116,7 @@ export default function Footer() {
         <div className="flex justify-end mb-12">
           <a
             href="https://www.instagram.com/coltandco"
-            className="text-gray-300 hover:text-white transition-colors duration-200"
+            className="text-[#ECF2F5]/78 hover:text-white transition-colors duration-200"
           >
             <Instagram size={24} />
           </a>
@@ -124,9 +124,9 @@ export default function Footer() {
       </div>
 
       {/* Bottom Section */}
-      <div className="border-t border-gray-900 py-8">
+      <div className="border-t border-white/10 py-8">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-gray-400">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-[#ECF2F5]/68">
             <div>© 2025, COLT & CO.</div>
             <div className="flex flex-wrap gap-4">
               <a href="#" className="hover:text-white transition-colors duration-200">
@@ -156,4 +156,3 @@ export default function Footer() {
     </footer>
   );
 }
-

@@ -113,7 +113,7 @@ export function FilterDropdown({ categories, sortOptions, onApply, onSort }: Fil
         {/* Mobile Filter Button */}
         <button
           onClick={() => setMobileMenuOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 border border-gray-900 text-gray-900 hover:bg-gray-50 active:scale-95 transition-all duration-200 lg:hidden"
+          className="flex items-center gap-2 px-4 py-2 border border-gray-900 text-gray-900 bg-white hover:bg-gray-50 active:scale-95 transition-all duration-200 lg:hidden rounded-lg"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -130,7 +130,7 @@ export function FilterDropdown({ categories, sortOptions, onApply, onSort }: Fil
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-50 lg:hidden">
             <div
-              className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ease-out ${
+              className={`absolute inset-0 bg-[#23446C]/35 transition-opacity duration-300 ease-out ${
                 isAnimatingOut ? "opacity-0" : isAnimatingIn ? "opacity-100" : "opacity-0"
               }`}
               onClick={handleCloseMenu}
@@ -280,7 +280,7 @@ export function FilterDropdown({ categories, sortOptions, onApply, onSort }: Fil
                 </button>
                 <button
                   onClick={handleApply}
-                  className="flex-1 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 rounded active:scale-95 transition-all duration-200"
+                  className="flex-1 py-3 bg-primary text-white font-medium hover:bg-[#2F5A8A] rounded active:scale-95 transition-all duration-200"
                 >
                   Apply
                 </button>
@@ -304,7 +304,7 @@ export function FilterDropdown({ categories, sortOptions, onApply, onSort }: Fil
           <div key={category.id} className="relative">
             <button
               onClick={() => setOpenDropdown(openDropdown === category.id ? null : category.id)}
-              className="flex items-center gap-2 px-4 py-2 border border-gray-900 text-gray-900 hover:bg-gray-50 active:scale-95 transition-all duration-200"
+              className="flex items-center gap-2 px-4 py-2 border border-gray-900 text-gray-900 bg-white hover:bg-gray-50 active:scale-95 transition-all duration-200 rounded-lg"
             >
               <span className="text-sm font-medium">{category.label}</span>
               <ChevronDown
@@ -315,7 +315,7 @@ export function FilterDropdown({ categories, sortOptions, onApply, onSort }: Fil
             </button>
 
             {openDropdown === category.id && (
-              <div className="absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 shadow-lg z-50 rounded animate-in fade-in zoom-in-95 duration-200 origin-top">
+              <div className="absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 shadow-[0_16px_40px_rgba(35,68,108,0.12)] z-50 rounded animate-in fade-in zoom-in-95 duration-200 origin-top">
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
                   <span className="text-sm text-gray-700">{selectedFilters[category.id]?.length || 0} selected</span>
@@ -375,7 +375,7 @@ export function FilterDropdown({ categories, sortOptions, onApply, onSort }: Fil
             </button>
 
             {openDropdown === category.id && (
-              <div className="absolute top-full right-0 mt-2 w-80 bg-white border border-gray-200 shadow-lg z-50 rounded animate-in fade-in zoom-in-95 duration-200 origin-top">
+              <div className="absolute top-full right-0 mt-2 w-80 bg-white border border-gray-200 shadow-[0_16px_40px_rgba(35,68,108,0.12)] z-50 rounded animate-in fade-in zoom-in-95 duration-200 origin-top">
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
                   <span className="text-sm text-gray-700">{selectedFilters[category.id]?.length || 0} selected</span>

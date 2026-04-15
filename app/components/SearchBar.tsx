@@ -103,7 +103,7 @@ export function SearchBar({ className = "" }: SearchBarProps) {
     <div className={`relative ${className}`}>
       <div className="relative">
         <Search
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
           size={20}
         />
         <input
@@ -118,12 +118,12 @@ export function SearchBar({ className = "" }: SearchBarProps) {
             }
           }}
           placeholder="Search products..."
-          className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+          className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
         />
         {query && (
           <button
             onClick={clearSearch}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-[#2F5A8A] transition-colors"
           >
             <X size={18} />
           </button>
@@ -133,7 +133,7 @@ export function SearchBar({ className = "" }: SearchBarProps) {
       {showDropdown && (query.length > 1) && (
         <div
           ref={dropdownRef}
-          className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl max-h-[500px] overflow-y-auto"
+          className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-[0_20px_45px_rgba(35,68,108,0.12)] max-h-[500px] overflow-y-auto"
         >
           {isLoading ? (
             <div className="p-4 text-center text-gray-500">
@@ -179,7 +179,7 @@ export function SearchBar({ className = "" }: SearchBarProps) {
                           setQuery("");
                         }}
                       >
-                        <div className="relative w-14 h-14 mr-3 flex-shrink-0 bg-gray-100 rounded">
+                        <div className="relative w-14 h-14 mr-3 flex-shrink-0 bg-background rounded">
                           <Image
                             src={product.mainImage}
                             alt={product.name}

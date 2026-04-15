@@ -46,8 +46,8 @@ const PaymentPage = () => {
             description: `Payment ID: ${response.razorpay_payment_id}`,
             duration: 5000,
             style: {
-              backgroundColor: "#228B22",
-              color: "#fff",
+              backgroundColor: "#23446C",
+              color: "#ECF2F5",
             },
           });
         },
@@ -57,7 +57,7 @@ const PaymentPage = () => {
           contact: "9589482345",
         },
         theme: {
-          color: "#F37254",
+          color: "#23446C",
         },
       };
 
@@ -71,7 +71,7 @@ const PaymentPage = () => {
         duration: 5000,
         style: {
           backgroundColor: "#dc2626",
-          color: "#fff",
+          color: "#ECF2F5",
         },
       });
     } finally {
@@ -84,18 +84,18 @@ const PaymentPage = () => {
       <section className="mx-auto w-full max-w-5xl px-4 py-8 space-y-6">
         <div className="flex flex-col items-center justify-center min-h-screen">
           <Script src="https://checkout.razorpay.com/v1/checkout.js" />
-          <div className="p-8 bg-gradient-to-br from-white to-purple-50/50 rounded-2xl shadow-2xl border-2 border-purple-200 max-w-md w-full">
-            <h1 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-purple-700 to-purple-600 bg-clip-text text-transparent">
+          <div className="p-8 bg-gradient-to-br from-white to-[#ECF2F5] rounded-2xl shadow-[0_24px_60px_rgba(35,68,108,0.12)] border-2 border-border max-w-md w-full">
+            <h1 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-primary to-[#2F5A8A] bg-clip-text text-transparent">
               Payment Portal
             </h1>
             <div className="text-center mb-6">
-              <p className="text-purple-600 mb-2 text-lg">Amount to Pay</p>
-              <p className="text-4xl font-bold text-purple-800">₹{AMOUNT}</p>
+              <p className="text-gray-600 mb-2 text-lg">Amount to Pay</p>
+              <p className="text-4xl font-bold text-gray-900">₹{AMOUNT}</p>
             </div>
             <button
               onClick={handlePayment}
               disabled={isProcessing}
-              className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg hover:from-purple-700 hover:to-purple-800 disabled:opacity-50 font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 disabled:hover:translate-y-0"
+              className="w-full px-6 py-4 bg-primary text-white rounded-lg hover:bg-[#2F5A8A] disabled:opacity-50 font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 disabled:hover:translate-y-0"
             >
               {isProcessing ? "Processing..." : "Pay Now"}
             </button>

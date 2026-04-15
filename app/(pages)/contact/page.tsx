@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
-import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { TextAnimate } from "@/components/ui/text-animate";
 
@@ -76,7 +75,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-16 md:py-24">
+      <section className="min-h-screen bg-gradient-to-b from-background to-white py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <motion.div
@@ -168,7 +167,7 @@ export default function ContactPage() {
                   <div className="flex gap-4">
                     <a
                       href="#"
-                      className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-900 text-gray-700 hover:text-white flex items-center justify-center transition-all duration-300"
+                      className="w-10 h-10 rounded-full bg-background hover:bg-primary text-gray-700 hover:text-white flex items-center justify-center transition-all duration-300"
                       aria-label="Facebook"
                     >
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -177,7 +176,7 @@ export default function ContactPage() {
                     </a>
                     <a
                       href="#"
-                      className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-900 text-gray-700 hover:text-white flex items-center justify-center transition-all duration-300"
+                      className="w-10 h-10 rounded-full bg-background hover:bg-primary text-gray-700 hover:text-white flex items-center justify-center transition-all duration-300"
                       aria-label="Instagram"
                     >
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -186,7 +185,7 @@ export default function ContactPage() {
                     </a>
                     <a
                       href="#"
-                      className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-900 text-gray-700 hover:text-white flex items-center justify-center transition-all duration-300"
+                      className="w-10 h-10 rounded-full bg-background hover:bg-primary text-gray-700 hover:text-white flex items-center justify-center transition-all duration-300"
                       aria-label="Twitter"
                     >
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -195,7 +194,7 @@ export default function ContactPage() {
                     </a>
                     <a
                       href="#"
-                      className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-900 text-gray-700 hover:text-white flex items-center justify-center transition-all duration-300"
+                      className="w-10 h-10 rounded-full bg-background hover:bg-primary text-gray-700 hover:text-white flex items-center justify-center transition-all duration-300"
                       aria-label="LinkedIn"
                     >
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -293,8 +292,8 @@ export default function ContactPage() {
                       animate={{ opacity: 1, y: 0 }}
                       className={`p-4 rounded-lg ${
                         submitStatus.type === "success"
-                          ? "bg-green-50 text-green-800 border border-green-200"
-                          : "bg-red-50 text-red-800 border border-red-200"
+                          ? "bg-secondary/15 text-primary border border-secondary/40"
+                          : "bg-destructive/10 text-destructive border border-destructive/20"
                       }`}
                     >
                       <p className="text-sm font-medium">{submitStatus.message}</p>
@@ -304,7 +303,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 bg-gray-900 text-white font-semibold px-6 py-3.5 rounded-lg hover:bg-gray-800 active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-gray-900"
+                    className="w-full flex items-center justify-center gap-2 bg-primary text-white font-semibold px-6 py-3.5 rounded-lg hover:bg-[#2F5A8A] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"
                   >
                     {isSubmitting ? (
                       <>

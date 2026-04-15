@@ -29,7 +29,13 @@ export const GetOrdersSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    clearOrders: (state) => {
+      state.orders = [];
+      state.loading = false;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(GetOrders.pending, (state) => {
       state.loading = true;
@@ -44,5 +50,7 @@ export const GetOrdersSlice = createSlice({
     });
   },
 });
+
+export const { clearOrders } = GetOrdersSlice.actions;
 
 export default GetOrdersSlice.reducer;

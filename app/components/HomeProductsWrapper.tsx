@@ -51,7 +51,7 @@ export default function HomeProductsWrapper() {
       
       <section
         ref={containerRef}
-        className="relative w-full min-h-screen bg-white px-4 py-16 md:py-24 pb-0 z-20"
+        className="relative w-full min-h-screen bg-background px-4 py-16 md:py-24 pb-0 z-20"
         style={{
           marginTop: "100vh",
           transform: `translateY(${Math.max(0, scrollProgress * 50)}px)`,
@@ -60,7 +60,7 @@ export default function HomeProductsWrapper() {
       >
         {/* Background blur effect that increases on scroll */}
         <div
-          className="absolute inset-0 bg-gradient-to-b from-black/5 to-transparent pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-b from-[#8DA7C2]/20 to-transparent pointer-events-none"
           style={{
             opacity: scrollProgress * 0.3,
           }}
@@ -110,7 +110,7 @@ export default function HomeProductsWrapper() {
               transition: "all 0.3s ease-out",
             }}
           >
-            <button className="px-8 py-3 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-300">
+            <button className="px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-[#2F5A8A] transition-colors duration-300">
               View All Products
             </button>
           </div>

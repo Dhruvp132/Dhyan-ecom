@@ -56,7 +56,11 @@ export const createAddress = createAsyncThunk(
 export const CreateAddressForOrderSlice = createSlice({
   name: "CreateAddressForOrder",
   initialState,
-  reducers: {},
+  reducers: {
+    clearAddress: () => initialState,
+  },
 });
+
+export const { clearAddress } = CreateAddressForOrderSlice.actions;
 
 export default CreateAddressForOrderSlice.reducer;
