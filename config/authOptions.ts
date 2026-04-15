@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prismaDB } from "@/db/db.config";
 import GoogleProvider from "next-auth/providers/google";
+import { isValidEmail } from "@/lib/auth-validation";
 
 interface ExtendedUser extends User {
   id: string;
@@ -15,27 +16,6 @@ interface ExtendedSession extends Session {
 
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
-
-const isValidEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
-
-const isValidPassword = (password: string): boolean => {
-  const minLength = 8;
-  const hasUpperCase = /[A-Z]/.test(password);
-  const hasLowerCase = /[a-z]/.test(password);
-  const hasNumber = /[0-9]/.test(password);
-  const hasSpecialChar = /[@#$%^&*(),.?":{}|<>]/.test(password);
-
-  return (
-    password.length >= minLength &&
-    hasUpperCase &&
-    hasLowerCase &&
-    hasNumber &&
-    hasSpecialChar
-  );
-};
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -52,12 +32,6 @@ export const authOptions: NextAuthOptions = {
 
         if (!isValidEmail(credentials.email)) {
           throw new Error("Invalid email format");
-        }
-
-        if (!isValidPassword(credentials.password)) {
-          throw new Error(
-            "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character"
-          );
         }
 
         const user = await prismaDB.user.findUnique({

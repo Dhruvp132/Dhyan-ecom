@@ -67,7 +67,7 @@ const Navbar = () => {
               onClick={() => setMenuOpen(false)}
             >
               <Image
-                src="/logo.png"
+                src="/coltLogo.jpg"
                 alt="Logo"
                 width={50}
                 height={40}
@@ -219,7 +219,12 @@ function NavLinks({
         </Link>
       )}
       {sessionStatus === "loading" ? (
-        <div className="w-16 h-6 bg-gray-200 animate-pulse rounded"></div>
+        <button
+          onClick={onLogout}
+          className="hover:underline underline-offset-4"
+        >
+          Logout
+        </button>
       ) : session?.user ? (
         <button
           onClick={onLogout}

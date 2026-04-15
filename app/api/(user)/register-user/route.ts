@@ -1,6 +1,7 @@
 import { prismaDB } from "@/db/db.config";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
+import { INVALID_PASSWORD_MESSAGE, isValidEmail, isValidPassword } from "@/lib/auth-validation";
 
 export const POST = async (req: NextRequest) => {
   const { name, email, password } = await req.json();
@@ -18,8 +19,7 @@ export const POST = async (req: NextRequest) => {
     }
 
     // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!isValidEmail(email)) {
       return NextResponse.json({
         message: "Invalid email format",
         status: 400,
@@ -27,12 +27,9 @@ export const POST = async (req: NextRequest) => {
     }
 
     // Validate password strength
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!passwordRegex.test(password)) {
+    if (!isValidPassword(password)) {
       return NextResponse.json({
-        message:
-          "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character",
+        message: INVALID_PASSWORD_MESSAGE,
         status: 400,
       });
     }

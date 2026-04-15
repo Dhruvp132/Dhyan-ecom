@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import { prismaDB } from "@/db/db.config";
+import { INVALID_PASSWORD_MESSAGE, isValidPassword } from "@/lib/auth-validation";
 
 export const PATCH = async (req: NextRequest) => {
   try {
@@ -37,13 +38,10 @@ export const PATCH = async (req: NextRequest) => {
 
     // Validate and hash password
     if (updateData.password) {
-      const isValidPassword = validatePassword(updateData.password);
-      if (!isValidPassword) {
+      const hasValidPassword = isValidPassword(updateData.password);
+      if (!hasValidPassword) {
         return NextResponse.json(
-          {
-            message:
-              "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character",
-          },
+          { message: INVALID_PASSWORD_MESSAGE },
           { status: 400 }
         );
       }
@@ -64,9 +62,3 @@ export const PATCH = async (req: NextRequest) => {
     );
   }
 };
-
-function validatePassword(password: string): boolean {
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  return passwordRegex.test(password);
-}

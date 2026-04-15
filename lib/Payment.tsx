@@ -52,7 +52,7 @@ const Checkout = ({ data, user }: { data: number; user: User }) => {
         currency: "INR",
         name: "COLT & CO.",
         description: "Payment for the products purchased from COLT & CO.",
-        image: "/logo.png",
+        image: "/coltLogo.jpg",
         order_id: orderData.orderId,
         handler: async function (response: any) {
           console.log("Payment successful:", response);

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/providers/toolkit/hooks/hooks";
 import { registerUser } from "@/providers/toolkit/features/RegisterUserSlice";
 import TestUser from "../(pages)/login/Testuser";
+import { INVALID_PASSWORD_MESSAGE, PASSWORD_REGEX } from "@/lib/auth-validation";
 
 interface SignupProps {
   name: string;
@@ -32,6 +33,22 @@ const RegisterLoginUser = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const passwordValidation = isLogin
+    ? {
+        required: "Password is required",
+      }
+    : {
+        required: "Password is required",
+        minLength: {
+          value: 8,
+          message: "Password must be at least 8 characters long",
+        },
+        pattern: {
+          value: PASSWORD_REGEX,
+          message: INVALID_PASSWORD_MESSAGE,
+        },
+      };
 
   const onSubmit = async (data: SignupProps) => {
     setIsLoading(true);
@@ -183,18 +200,7 @@ const RegisterLoginUser = () => {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 8,
-                    message: "Password must be at least 8 characters long",
-                  },
-                  pattern: {
-                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/,
-                    message:
-                      "Password must include an uppercase letter, a lowercase letter, a number, and a special character",
-                  },
-                })}
+                {...register("password", passwordValidation)}
                 className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all pr-10"
               />
               <div
