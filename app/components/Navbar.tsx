@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
 import { WordRotate } from "@/components/ui/word-rotate";
 import { SearchBar } from "./SearchBar";
@@ -21,6 +22,17 @@ interface AppUser {
   name?: string | null;
   isAdmin: boolean;
 }
+
+const navTransition = {
+  duration: 0.3,
+  ease: [0.4, 0, 0.2, 1] as const,
+};
+
+const iconSpring = {
+  type: "spring" as const,
+  stiffness: 220,
+  damping: 18,
+};
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,6 +72,26 @@ const Navbar = () => {
     () => authState.user?.isAdmin || syncUser?.isAdmin || false,
     [authState.user?.isAdmin, syncUser?.isAdmin]
   );
+
+  const toggleMenu = () => {
+    setMenuOpen((open) => {
+      const next = !open;
+      if (next) {
+        setSearchOpen(false);
+      }
+      return next;
+    });
+  };
+
+  const toggleSearch = () => {
+    setSearchOpen((open) => {
+      const next = !open;
+      if (next) {
+        setMenuOpen(false);
+      }
+      return next;
+    });
+  };
 
   const handleLogout = async (closeMenu = false) => {
     dispatch(clearCart());
@@ -113,13 +145,24 @@ const Navbar = () => {
           {/* Top bar */}
           <div className="flex items-center justify-between py-4">
             {/* Left - Hamburger (mobile) */}
-            <button
+            <motion.button
+              type="button"
               className="md:hidden"
-              onClick={() => setMenuOpen(!menuOpen)}
+              onClick={toggleMenu}
               aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+              whileHover={{ scale: 1.07 }}
+              whileTap={{ scale: 0.94 }}
+              transition={iconSpring}
             >
-              {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+              <motion.span
+                className="flex"
+                animate={{ rotate: menuOpen ? 90 : 0 }}
+                transition={iconSpring}
+              >
+                {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </motion.span>
+            </motion.button>
 
             {/* Center - Logo */}
             <Link
@@ -142,10 +185,24 @@ const Navbar = () => {
 
             {/* Right - Icons */}
             <div className="flex items-center gap-4">
-              <Search 
-                className="w-5 h-5 cursor-pointer text-gray-900 hover:text-[#2F5A8A]" 
-                onClick={() => setSearchOpen(!searchOpen)}
-              />
+              <motion.button
+                type="button"
+                className="text-gray-900"
+                onClick={toggleSearch}
+                aria-label={searchOpen ? "Close search" : "Open search"}
+                aria-expanded={searchOpen}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
+                transition={iconSpring}
+              >
+                <motion.span
+                  className="flex"
+                  animate={{ rotate: searchOpen ? 90 : 0, scale: searchOpen ? 1.05 : 1 }}
+                  transition={iconSpring}
+                >
+                  <Search className="w-5 h-5 cursor-pointer hover:text-[#2F5A8A]" />
+                </motion.span>
+              </motion.button>
               {shouldShowAuthLoading ? (
                 <div className="w-5 h-5 bg-secondary/40 animate-pulse rounded-full"></div>
               ) : isAuthenticated ? (
@@ -167,11 +224,28 @@ const Navbar = () => {
           </div>
 
           {/* Search Bar (Toggleable) */}
-          {searchOpen && (
-            <div className="pb-3">
-              <SearchBar className="w-full" />
-            </div>
-          )}
+          <AnimatePresence initial={false}>
+            {searchOpen && (
+              <motion.div
+                key="search-panel"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={navTransition}
+                className="overflow-hidden"
+              >
+                <motion.div
+                  initial={{ y: -10, scale: 0.98 }}
+                  animate={{ y: 0, scale: 1 }}
+                  exit={{ y: -8, scale: 0.98 }}
+                  transition={navTransition}
+                  className="pb-3"
+                >
+                  <SearchBar className="w-full" />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Desktop menu */}
           <div className="hidden md:flex justify-center gap-10 pb-3 text-sm font-medium text-gray-800 border-t border-gray-200 pt-3">
@@ -185,18 +259,35 @@ const Navbar = () => {
           </div>
 
           {/* Mobile dropdown menu */}
-          {menuOpen && (
-            <div className="md:hidden flex flex-col items-center gap-4 py-4 border-t border-gray-200 text-gray-800 bg-white">
-              <NavLinks 
-                session={session} 
-                Admin={Admin} 
-                isAuthenticated={isAuthenticated}
-                shouldShowAuthLoading={shouldShowAuthLoading}
-                onLogout={() => handleLogout(true)}
-                onLinkClick={() => setMenuOpen(false)}
-              />
-            </div>
-          )}
+          <AnimatePresence initial={false}>
+            {menuOpen && (
+              <motion.div
+                key="mobile-menu"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={navTransition}
+                className="overflow-hidden md:hidden"
+              >
+                <motion.div
+                  initial={{ y: -12, scale: 0.98 }}
+                  animate={{ y: 0, scale: 1 }}
+                  exit={{ y: -10, scale: 0.98 }}
+                  transition={navTransition}
+                  className="flex flex-col items-center gap-4 py-4 border-t border-gray-200 text-gray-800 bg-white"
+                >
+                  <NavLinks 
+                    session={session} 
+                    Admin={Admin} 
+                    isAuthenticated={isAuthenticated}
+                    shouldShowAuthLoading={shouldShowAuthLoading}
+                    onLogout={() => handleLogout(true)}
+                    onLinkClick={() => setMenuOpen(false)}
+                  />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </nav>
       </div>
     </>

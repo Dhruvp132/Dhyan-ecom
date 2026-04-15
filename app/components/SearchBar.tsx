@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { Search, X } from "lucide-react";
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface Product {
   id: string;
@@ -17,6 +18,11 @@ interface Product {
 interface SearchBarProps {
   className?: string;
 }
+
+const searchTransition = {
+  duration: 0.28,
+  ease: [0.4, 0, 0.2, 1] as const,
+};
 
 export function SearchBar({ className = "" }: SearchBarProps) {
   const [query, setQuery] = useState("");
@@ -130,99 +136,112 @@ export function SearchBar({ className = "" }: SearchBarProps) {
         )}
       </div>
 
-      {showDropdown && (query.length > 1) && (
-        <div
-          ref={dropdownRef}
-          className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-[0_20px_45px_rgba(35,68,108,0.12)] max-h-[500px] overflow-y-auto"
-        >
-          {isLoading ? (
-            <div className="p-4 text-center text-gray-500">
-              <div className="animate-pulse">Searching...</div>
-            </div>
-          ) : (
-            <>
-              {/* Suggestions Section */}
-              {suggestions.length > 0 && (
-                <div className="p-3 border-b border-gray-100">
-                  <h3 className="text-xs font-bold text-gray-500 uppercase mb-2">
-                    Suggestions
-                  </h3>
-                  <div className="space-y-1">
-                    {suggestions.map((suggestion, index) => (
-                      <div
-                        key={index}
-                        className="px-3 py-2 hover:bg-gray-50 cursor-pointer rounded text-sm transition-colors"
-                        onClick={() => handleSearch(suggestion)}
-                      >
-                        <Search size={14} className="inline mr-2 text-gray-400" />
-                        {suggestion}
-                      </div>
-                    ))}
+      <AnimatePresence>
+        {showDropdown && query.length > 1 && (
+          <motion.div
+            key="search-dropdown"
+            ref={dropdownRef}
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            transition={searchTransition}
+            className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-[0_20px_45px_rgba(35,68,108,0.12)] max-h-[500px] overflow-y-auto"
+          >
+            {isLoading ? (
+              <div className="p-4 text-center text-gray-500">
+                <div className="animate-pulse">Searching...</div>
+              </div>
+            ) : (
+              <>
+                {/* Suggestions Section */}
+                {suggestions.length > 0 && (
+                  <div className="p-3 border-b border-gray-100">
+                    <h3 className="text-xs font-bold text-gray-500 uppercase mb-2">
+                      Suggestions
+                    </h3>
+                    <div className="space-y-1">
+                      {suggestions.map((suggestion, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.2, delay: index * 0.03 }}
+                          className="px-3 py-2 hover:bg-gray-50 cursor-pointer rounded text-sm transition-colors"
+                          onClick={() => handleSearch(suggestion)}
+                        >
+                          <Search size={14} className="inline mr-2 text-gray-400" />
+                          {suggestion}
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Products Section */}
-              {products.length > 0 && (
-                <div className="p-3">
-                  <h3 className="text-xs font-bold text-gray-500 uppercase mb-2">
-                    Products
-                  </h3>
-                  <div className="space-y-2">
-                    {products.map((product) => (
-                      <div
-                        key={product.id}
-                        className="flex items-center px-2 py-2 hover:bg-gray-50 cursor-pointer rounded transition-colors"
-                        onClick={() => {
-                          router.push(`/products/${product.id}`);
-                          setShowDropdown(false);
-                          setQuery("");
-                        }}
+                {/* Products Section */}
+                {products.length > 0 && (
+                  <div className="p-3">
+                    <h3 className="text-xs font-bold text-gray-500 uppercase mb-2">
+                      Products
+                    </h3>
+                    <div className="space-y-2">
+                      {products.map((product, index) => (
+                        <motion.div
+                          key={product.id}
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.2, delay: index * 0.03 }}
+                          className="flex items-center px-2 py-2 hover:bg-gray-50 cursor-pointer rounded transition-colors"
+                          onClick={() => {
+                            router.push(`/products/${product.id}`);
+                            setShowDropdown(false);
+                            setQuery("");
+                          }}
+                        >
+                          <div className="relative w-14 h-14 mr-3 flex-shrink-0 bg-background rounded">
+                            <Image
+                              src={product.mainImage}
+                              alt={product.name}
+                              fill
+                              className="object-cover rounded"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-900 truncate">
+                              {product.name}
+                            </p>
+                            <p className="text-sm text-gray-600">₹{product.price}</p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                    {products.length === 4 && (
+                      <button
+                        onClick={() => handleSearch(query)}
+                        className="w-full mt-2 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded transition-colors"
                       >
-                        <div className="relative w-14 h-14 mr-3 flex-shrink-0 bg-background rounded">
-                          <Image
-                            src={product.mainImage}
-                            alt={product.name}
-                            fill
-                            className="object-cover rounded"
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
-                            {product.name}
-                          </p>
-                          <p className="text-sm text-gray-600">₹{product.price}</p>
-                        </div>
-                      </div>
-                    ))}
+                        View all results for &quot;{query}&quot;
+                      </button>
+                    )}
                   </div>
-                  {products.length === 4 && (
+                )}
+
+                {/* No Results */}
+                {!isLoading && suggestions.length === 0 && products.length === 0 && (
+                  <div className="p-4 text-center text-gray-500">
+                    <p className="text-sm">No results found for &quot;{query}&quot;</p>
                     <button
                       onClick={() => handleSearch(query)}
-                      className="w-full mt-2 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded transition-colors"
+                      className="mt-2 text-sm text-gray-900 hover:underline"
                     >
-                      View all results for &quot;{query}&quot;
+                      Search anyway
                     </button>
-                  )}
-                </div>
-              )}
-
-              {/* No Results */}
-              {!isLoading && suggestions.length === 0 && products.length === 0 && (
-                <div className="p-4 text-center text-gray-500">
-                  <p className="text-sm">No results found for &quot;{query}&quot;</p>
-                  <button
-                    onClick={() => handleSearch(query)}
-                    className="mt-2 text-sm text-gray-900 hover:underline"
-                  >
-                    Search anyway
-                  </button>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      )}
+                  </div>
+                )}
+              </>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

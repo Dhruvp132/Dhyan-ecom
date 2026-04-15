@@ -3,7 +3,7 @@ import HeroVideoBackground from "./HeroVideoBackground"
 
 export default function Hero() {
   return (
-    <section className="fixed top-20 left-0 w-full h-screen overflow-hidden bg-primary z-0">
+    <section className="fixed top-20 left-0 w-full h-screen overflow-hidden bg-black z-0">
       <div className="absolute inset-0 w-full h-full">
         <Image
           src="/fallback-video-image.v1.png"
@@ -17,7 +17,7 @@ export default function Hero() {
 
         <HeroVideoBackground />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-[#23446C]/50 via-[#23446C]/10 to-[#23446C]/75" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
       </div>
 
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 text-center">
