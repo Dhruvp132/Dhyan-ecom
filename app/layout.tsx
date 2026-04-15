@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import { ViewTransitions } from "next-view-transitions";
@@ -9,7 +9,38 @@ import ReduxProvider from "@/providers/ReduxProvider";
 import { Toaster as ToastMsg } from "react-hot-toast";
 import ScrollToTopButton from "./components/TopScroller";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = localFont({
+  src: [
+    {
+      path: "../public/fonts/Poppins/Poppins-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Poppins/Poppins-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const playfairDisplay = localFont({
+  src: "../public/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf",
+  variable: "--font-heading",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "COLT & CO. - Your One-Stop Shop for Everything!",
@@ -25,7 +56,7 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={`${poppins.variable} ${playfairDisplay.variable}`}>
           <NextAuthSessionProvider>
             <ReduxProvider>
               <Navbar />

@@ -67,7 +67,7 @@ const Navbar = () => {
               onClick={() => setMenuOpen(false)}
             >
               <Image
-                src="/coltLogo.jpg"
+                src="/coltLogo.webp"
                 alt="Logo"
                 width={50}
                 height={40}
