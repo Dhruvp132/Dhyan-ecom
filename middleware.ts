@@ -24,6 +24,7 @@ export async function middleware(req: NextRequest) {
   if (
     (pathname === "/cart" ||
       pathname === "/order" ||
+      pathname === "/profile" ||
       pathname === "/dashboard" ||
       pathname === "/checkout") &&
     !session
@@ -61,6 +62,8 @@ export const config = {
     "/",
     "/login",
     "/order",
+    "/profile",
+    "/profile/:path*",
     "/cart",
     "/dashboard",
     "/api/:path*",

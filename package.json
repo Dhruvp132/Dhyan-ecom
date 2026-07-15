@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "prisma db push && next dev",
+    "dev": "next dev",
     "build": "prisma db push && next build",
     "start": "next start",
     "lint": "next lint",
@@ -30,6 +30,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "dotenv": "^17.4.2",
     "framer-motion": "^11.2.12",
     "ioredis": "^5.4.1",
     "lucide-react": "^0.390.0",

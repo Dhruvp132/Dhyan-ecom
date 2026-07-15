@@ -12,6 +12,8 @@ model User {
   name      String
   email     String         @unique
   password  String
+  phone     String?
+  avatarUrl String?
   isAdmin   Boolean        @default(false)
   products  Product[]
   cart      Cart[]
@@ -88,13 +90,13 @@ model Order {
 }
 
 model OrderItem {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   quantity  Int
   price     Float
-  orderId   String   @db.ObjectId
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId String   @db.ObjectId
-  product   Product  @relation(fields: [productId], references: [id])
+  orderId   String    @db.ObjectId
+  order     Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String    @db.ObjectId
+  product   Product   @relation(fields: [productId], references: [id])
   color     String?
   size      String?
   createdAt DateTime? @default(now())

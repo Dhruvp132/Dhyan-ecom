@@ -15,7 +15,7 @@ type Product = {
 const baseUrl =
   process.env.NODE_ENV === "production"
     ? "https://dhyan-ecom.vercel.app/api/"
-    : "http://localhost:3000/api/";
+    : "http://localhost:3003/api/";
 
 export const productsApi = createApi({
   reducerPath: "productsApi",

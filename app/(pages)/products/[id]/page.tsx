@@ -236,7 +236,7 @@ const ProductPage = () => {
               className="relative hidden lg:block"
               style={{ height: `${Math.max(240, images.length * 150)}vh` }}
             >
-              <div className="sticky" style={{ top: navHeight + 140 }}>
+              <div className="sticky pt-[30px]" style={{ top: navHeight + 140 }}>
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                   {/* Left Sidebar - Thumbnail Navigation */}
                   <div className="hidden lg:block lg:col-span-1">

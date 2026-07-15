@@ -208,7 +208,7 @@ const Navbar = () => {
               ) : isAuthenticated ? (
                 <User 
                   className="w-5 h-5 cursor-pointer md:block text-gray-900 hover:text-[#2F5A8A]" 
-                  onClick={() => router.push("/order")}
+                  onClick={() => router.push("/profile")}
                 />
               ) : (
                 <User 
@@ -250,7 +250,6 @@ const Navbar = () => {
           {/* Desktop menu */}
           <div className="hidden md:flex justify-center gap-10 pb-3 text-sm font-medium text-gray-800 border-t border-gray-200 pt-3">
             <NavLinks 
-              session={session} 
               Admin={Admin} 
               isAuthenticated={isAuthenticated}
                 shouldShowAuthLoading={shouldShowAuthLoading}
@@ -277,7 +276,6 @@ const Navbar = () => {
                   className="flex flex-col items-center gap-4 py-4 border-t border-gray-200 text-gray-800 bg-white"
                 >
                   <NavLinks 
-                    session={session} 
                     Admin={Admin} 
                     isAuthenticated={isAuthenticated}
                     shouldShowAuthLoading={shouldShowAuthLoading}
@@ -296,14 +294,12 @@ const Navbar = () => {
 
 // ✨ Separate component for links (cleaner)
 function NavLinks({ 
-  session, 
   Admin, 
   isAuthenticated,
   shouldShowAuthLoading,
   onLogout,
   onLinkClick 
 }: { 
-  session: any; 
   Admin: boolean; 
   isAuthenticated: boolean;
   shouldShowAuthLoading: boolean;

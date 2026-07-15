@@ -1,5 +1,6 @@
 import Image from "next/image"
 import HeroVideoBackground from "./HeroVideoBackground"
+import { TextAnimate } from "@/components/ui/text-animate"
 
 export default function Hero() {
   return (
@@ -21,7 +22,11 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 text-center">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 text-balance">COLT & CO.</h1>
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#0b4476] mb-4 text-balance">
+          <TextAnimate animation="slideUp" by="word">
+            COLT & CO.
+          </TextAnimate>
+        </h1>
         <p className="text-lg md:text-xl text-[#ECF2F5] mb-8 max-w-2xl text-pretty">
           Elevate Your Shopping Experience - Discover the best products at the best prices
         </p>
